@@ -48,54 +48,59 @@ The workspace is pre-populated with mathematically consistent data modeling the 
 
 ## Project Structure
 
+## Project Structure (Modern React Architecture)
+
 ```text
-frontend/
-├── index.html                 # Phase 1: Landing Page
-├── dashboard.html             # Phase 2: Operations Dashboard Workspace
-├── css/
-│   ├── tokens.css             # Design tokens (colors, typography, shadows, borders)
-│   ├── global.css             # Resets, accessibility utilities, typography
-│   ├── components.css         # Badges, metric cards, data tables, modals, trust pills
-│   ├── landing.css            # Landing page layout, hero, interactive preview, process flow
-│   └── dashboard.css          # Control center layout, collapsible sidebar, tabs, matrix
-├── js/
-│   ├── mock-data.js           # Authoritative initial mock entities and seed state
-│   ├── api-service.js         # Asynchronous Promise-based data layer with localStorage persistence
-│   ├── app.js                 # Global formatting helpers, trust badges, toasts, and modal traps
-│   ├── navigation.js          # Global keyboard navigation shortcuts ('/' to search)
-│   ├── landing.js             # Landing page preview stage switcher and mobile menu
-│   ├── dashboard.js           # Dashboard router, topbar controls, and Overview KPI cards
-│   ├── cases.js               # Disruption cases list with live search, multi-filter, and sorting
-│   ├── case-detail.js         # 7-tab investigation workspace (Summary, Impact, Evidence, Agents, Options, Approval, Outcome)
-│   ├── monitoring.js          # Proactive monitoring listener & disruption report intake form
-│   ├── recovery-plans.js      # Consolidated enterprise recovery plans ledger
-│   └── audit-log.js           # Append-only chronological compliance audit stream
-├── assets/                    # Icons and imagery assets
-└── README.md                  # Documentation
+react-frontend/
+├── index.html                 # HTML shell with Google Fonts (Noto Serif, Inter, JetBrains Mono)
+├── package.json               # React 18, React Router v6, GSAP, Lucide React, Vite
+├── vite.config.js             # Vite configuration
+├── src/
+│   ├── main.jsx               # Application root mount point
+│   ├── App.jsx                # Router integrating LandingPage & Control Center
+│   ├── pages/
+│   │   ├── landing/           # Antimetal Editorial & Glass Landing Page (LandingPage.jsx, LandingPage.css)
+│   │   ├── control-center/    # Executive KPI cards, trend chart, risk distribution
+│   │   ├── disruptions/       # Cases catalog with multi-filters and live search
+│   │   ├── case-workspace/    # 7-Tab deep investigation workspace (Summary, Impact, Evidence, Agents, Options, Approval, Outcome)
+│   │   ├── monitoring/        # Proactive signal listener & alert intake modal
+│   │   ├── network/           # Supply network nodes & inventory runways
+│   │   ├── recovery/          # Enterprise recovery plans ledger
+│   │   ├── audit/             # Chronological append-only compliance audit trail
+│   │   └── settings/          # Telemetry endpoints & demo state reset
+│   ├── components/
+│   │   ├── common/            # TrustBadge, RiskBadge, StatusBadge, MetricCard, RunwayBar, Modal, etc.
+│   │   └── layout/            # Sidebar, Topbar, AppShell
+│   ├── context/               # WorkspaceContext, ToastContext
+│   ├── data/mock/             # Canonical scenario (SC-2026-001) & storage adapter
+│   ├── services/              # Domain service layers (cases, monitoring, recovery, audit)
+│   └── styles/
+│       ├── tokens.css         # Design tokens & color system
+│       ├── variables.css      # Antimetal variables & typography scale
+│       ├── theme.css          # Design reference tokens
+│       ├── globals.css        # Resets, tables, buttons, cards, utilities
+│       └── animations.css     # Keyframes and reduced-motion handling
 ```
 
 ---
 
 ## How to Run & Verify
 
-The frontend is built with pure standards-based ES6+ JavaScript, CSS tokens, and semantic HTML with zero build steps or external dependencies.
+The application is built with React 18, Vite, React Router, GSAP, and Lucide React.
 
-### Option 1: Serve locally using Python
-Run from the project root:
+### Running the Development Server
 ```bash
-python -m http.server 8000
-```
-Then navigate to:
-- **Landing Page**: [http://localhost:8000/frontend/index.html](http://localhost:8000/frontend/index.html) (or [http://localhost:8000/](http://localhost:8000/))
-- **Dashboard**: [http://localhost:8000/frontend/dashboard.html](http://localhost:8000/frontend/dashboard.html)
-
-### Option 2: Serve using Node.js
-```bash
-npx serve .
+cd react-frontend
+npm install
+npm run dev
 ```
 
-### Option 3: Direct File Open
-Open `frontend/index.html` or `frontend/dashboard.html` directly in any modern browser (Chrome, Edge, Firefox, Safari).
+### Creating Production Build
+```bash
+cd react-frontend
+npm run build
+npm run preview
+```
 
 ---
 
